@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { DailyEntry, FoodItem, FoodScore } from '../types';
+import { DailyEntry, FoodItem } from '../types';
 import { supabase } from '../services/supabaseService';
 import { useAuth } from '../contexts/AuthContext';
 import { calculateAllFoodScores } from '../services/calculationService';
@@ -12,7 +11,6 @@ import Charts from './Charts';
 import Calendar from './Calendar';
 import EntriesTable from './EntriesTable';
 import DataManagement from './DataManagement';
-import { subDays, format } from 'date-fns';
 
 const AllergyTracker: React.FC = () => {
     const { user, signOut } = useAuth();
@@ -77,18 +75,17 @@ const AllergyTracker: React.FC = () => {
         
         const existingEntry = dailyEntries.find(e => e.date === entry.date);
 
-        const entryPayload = { ...entry, user_id: user.id };
-
         if (existingEntry && existingEntry.id) {
             // Update
             const { error } = await supabase
                 .from('daily_entries')
-                .update(entryPayload)
+                .update(entry)
                 .eq('id', existingEntry.id);
             if (error) setError(error.message);
             else await fetchData();
         } else {
             // Insert
+            const entryPayload = { ...entry, user_id: user.id };
             const { error } = await supabase
                 .from('daily_entries')
                 .insert([entryPayload]);

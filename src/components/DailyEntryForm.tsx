@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { DailyEntry } from '../types';
 import { isNextDay, calculateDailyScore } from '../services/calculationService';
@@ -79,7 +78,7 @@ const DailyEntryForm: React.FC<DailyEntryFormProps> = ({ foodItems, onSubmit, da
                 <strong className="block mt-2">Endpunkt = {calculation.itchScore.toFixed(2)} &times; {calculation.pillMultiplier} = {score.toFixed(2)}</strong>
             </div>
         );
-    }, [date, symptomSeverity, pillTaken, dailyEntries]);
+    }, [date, symptomSeverity, pillTaken, dailyEntries, selectedFoods]);
 
     return (
         <>
