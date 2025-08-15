@@ -57,7 +57,16 @@ const DailyEntryForm: React.FC<DailyEntryFormProps> = ({ foodItems, onSubmit, da
     };
 
     const calculatedScoreDisplay = useMemo(() => {
-        const currentEntry: DailyEntry = { date, symptom_severity: symptomSeverity, pill_taken: pillTaken, foods: selectedFoods };
+        // Create a temporary object for calculation that satisfies the DailyEntry type.
+        // The id and user_id are required by the type but not used in the calculation itself.
+        const currentEntry: DailyEntry = {
+             date,
+             symptom_severity: symptomSeverity,
+             pill_taken: pillTaken,
+             foods: selectedFoods,
+             id: 0, // Dummy value to satisfy type
+             user_id: '' // Dummy value to satisfy type
+        };
         
         let tempEntries = dailyEntries.filter(e => e.date !== date);
         tempEntries.push(currentEntry);

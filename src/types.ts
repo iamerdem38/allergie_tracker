@@ -30,6 +30,7 @@ export type Database = {
           pill_taken?: boolean;
           symptom_severity?: number;
         };
+        Relationships: [];
       };
       food_items: {
         Row: {
@@ -44,6 +45,7 @@ export type Database = {
         Update: {
           name?: string;
         };
+        Relationships: [];
       };
     };
     Views: {
