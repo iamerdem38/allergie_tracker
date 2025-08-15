@@ -5,7 +5,7 @@ export interface FoodScore {
     averageScore: number;
 }
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       daily_entries: {
@@ -18,7 +18,6 @@ export interface Database {
           user_id: string;
         };
         Insert: {
-          id?: number;
           date: string;
           foods: string[];
           pill_taken: boolean;
@@ -39,7 +38,6 @@ export interface Database {
           user_id: string;
         };
         Insert: {
-          id?: number;
           name: string;
           user_id: string;
         };
