@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { DailyEntry, FoodItem, FoodScore } from '../types';
 import { supabase } from '../services/supabaseService';
 import { useAuth } from '../contexts/AuthContext';
-import { calculateAllFoodScores } from '../services/calculationService';
+import { calculateAllFoodScores, calculateDailyScore, isNextDay } from '../services/calculationService';
 
 import DailyEntryForm from './DailyEntryForm';
 import FoodManagement from './FoodManagement';
@@ -53,8 +53,18 @@ const AllergyTracker: React.FC = () => {
         return calculateAllFoodScores(dailyEntries, foodItems.map(f => f.name));
     }, [dailyEntries, foodItems]);
     
-    const sortedDailyEntries = useMemo(() => {
-        return [...dailyEntries].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const entriesWithScores = useMemo(() => {
+        const sortedForCalc = [...dailyEntries].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        
+        const calculatedEntries = sortedForCalc.map((current, i) => {
+            const prev = (i > 0 && isNextDay(sortedForCalc[i-1].date, current.date)) ? sortedForCalc[i-1] : null;
+            const next = (i < sortedForCalc.length - 1 && isNextDay(current.date, sortedForCalc[i+1].date)) ? sortedForCalc[i+1] : null;
+            const { score } = calculateDailyScore(current, prev, next);
+            return { ...current, finalScore: score };
+        });
+
+        // sort back to descending for display
+        return calculatedEntries.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }, [dailyEntries]);
 
     const addFoodItem = async (name: string) => {
@@ -162,7 +172,7 @@ const AllergyTracker: React.FC = () => {
                 <div className="p-6 bg-white rounded-xl shadow-lg">
                     <h3 className="text-xl font-medium text-gray-700 mb-2">Zeitverlauf der Allergiebeschwerden</h3>
                     <EntriesTable 
-                        entries={sortedDailyEntries.map(e => ({ ...e, finalScore: foodScores.find(s => s.food === e.foods[0])?.totalScore ?? 0 }))}
+                        entries={entriesWithScores}
                         onDelete={deleteDailyEntry} 
                         onEdit={(entry) => {
                             setEntryToEdit(entry);

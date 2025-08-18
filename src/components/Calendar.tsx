@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { DailyEntry } from '../types';
 import { addMonths, eachDayOfInterval, endOfMonth, format, getDay } from 'date-fns';
@@ -29,7 +30,7 @@ const Calendar: React.FC<CalendarProps> = ({ dailyEntries }) => {
         const end = endOfMonth(currentMonth);
         const days = eachDayOfInterval({ start, end });
 
-        const entriesMap = new Map(dailyEntries.map(e => [e.date, e]));
+        const entriesMap: Map<string, DailyEntry> = new Map(dailyEntries.map(e => [e.date, e]));
         
         // Adjust for Monday start (0 = Monday, 6 = Sunday)
         let startingDayIndex = getDay(start);
