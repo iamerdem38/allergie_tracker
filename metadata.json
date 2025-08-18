@@ -1,0 +1,5 @@
+{
+  "name": "Allergy Tracker Pro",
+  "description": "A comprehensive application to track daily food intake and allergy symptoms, analyze correlations, and visualize data to identify potential triggers. Includes database integration and user authentication structure.",
+  "requestFramePermissions": []
+}

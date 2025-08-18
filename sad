@@ -1,0 +1,95 @@
+[33mcommit 27b91f4700a8ace55de8fdc612bcc1476cd6341c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 02:22:08 2025 +0200
+
+    fix nr 10
+
+[33mcommit 42ab543ef9a6f2e0bf182490e9c2c9a5a04dc63e[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:53:14 2025 +0200
+
+    Fix nr 8
+
+[33mcommit 4d9a2240068e9501a35cc1eb862e0c37dca8b676[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:47:22 2025 +0200
+
+    Fix nr 7
+
+[33mcommit e863ffb40e74976981d1abb00ab1d7a0874054d7[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:42:32 2025 +0200
+
+    fix nr 6
+
+[33mcommit b28c44af36ebc38c2d13e0c1c1ff227169ef059b[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:41:21 2025 +0200
+
+    Fix nr 5
+
+[33mcommit 0a337b7b73c30c7881f229140cffd4284bc5be5a[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:38:24 2025 +0200
+
+    Fix nr 4
+
+[33mcommit fef3cbc0a8285a5c7c65351cd38ae5ffe2141373[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:35:08 2025 +0200
+
+    fix nr 3
+
+[33mcommit abe5923ce48f9ee141432e0914e9287e0aff088e[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:26:53 2025 +0200
+
+    Fix: plot hinzufügen hat nicht geklappt - fix nr 2
+
+[33mcommit bfb43f53b5ac01824cac7c7d97caf5af15c117c9[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:17:59 2025 +0200
+
+    Fehler korrigieren
+
+[33mcommit 5e998333d26ea3c1fae2ac9cfc528f064a55e63c[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sun Aug 17 01:08:54 2025 +0200
+
+    Funktion: Zeitverlauf-Plot für Juckreiz und Tabletten hinzugefügt
+
+[33mcommit 5ff28b5ff863d022cbe0a5516d57963b2b034c33[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sat Aug 16 02:01:31 2025 +0200
+
+    Final Fix: Correct TypeScript type and remove conflicting index.html
+
+[33mcommit 6d9990c278b354fc47c5d0ba7cc4def8a795f3a4[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sat Aug 16 01:35:56 2025 +0200
+
+    Final Fix: Correct TypeScript type and remove conflicting index.html
+
+[33mcommit 8bcf52df2e72a1a669bd6154836385a43a61bac1[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sat Aug 16 01:14:18 2025 +0200
+
+    Complete project replacement with React structure
+
+[33mcommit b73ddfa0c4eaa5f5e3b02689ba0884f4075ed804[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sat Aug 16 01:05:55 2025 +0200
+
+    Fix: Remove extraneous root index.html to fix build process
+
+[33mcommit 57557fb324f2e8ad79bdb1ff8f641cd04142d3c9[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sat Aug 16 01:02:14 2025 +0200
+
+    Fix build errors and unused variable warnings
+
+[33mcommit 6fcad13d4ba277098fd02d4b8d156f4bb4abccb1[m
+Author: Erdem <sonsozlerim@live.de>
+Date:   Sat Aug 16 00:40:08 2025 +0200
+
+    Initial project setup
