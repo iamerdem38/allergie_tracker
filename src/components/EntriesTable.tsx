@@ -1,5 +1,5 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Fragment } from 'react';
 import { DailyEntry } from '../types';
 
 interface EntriesTableProps {
@@ -19,6 +19,19 @@ const EntriesTable: React.FC<EntriesTableProps> = ({ entries, onDelete, onEdit }
         scoreMin: '',
         scoreMax: '',
     });
+    const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
+
+    const toggleRowExpansion = (id: number) => {
+        setExpandedRows(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(id)) {
+                newSet.delete(id);
+            } else {
+                newSet.add(id);
+            }
+            return newSet;
+        });
+    };
 
     const filteredEntries = useMemo(() => {
         return entries.filter(e => {
@@ -61,19 +74,49 @@ const EntriesTable: React.FC<EntriesTableProps> = ({ entries, onDelete, onEdit }
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {paginatedEntries.map(entry => (
-                            <tr key={entry.id}>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{entry.date}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.pill_taken ? 'Ja' : 'Nein'}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.symptom_severity}</td>
-                                <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate" title={entry.foods.join(', ')}>{entry.foods.join(', ')}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{(entry.finalScore || 0).toFixed(2)}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button onClick={() => onEdit(entry)} className="text-indigo-600 hover:text-indigo-900 mr-2">Bearbeiten</button>
-                                    <button onClick={() => onDelete(entry.id!)} className="text-red-600 hover:text-red-900">Löschen</button>
-                                </td>
-                            </tr>
-                        ))}
+                        {paginatedEntries.map(entry => {
+                            const isExpanded = expandedRows.has(entry.id);
+                            return (
+                                <Fragment key={entry.id}>
+                                    <tr>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{entry.date}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.pill_taken ? 'Ja' : 'Nein'}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entry.symptom_severity}</td>
+                                        <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">
+                                             <div className="flex items-center justify-between">
+                                                <span className="truncate" title={entry.foods.join(', ')}>
+                                                    {entry.foods.join(', ')}
+                                                </span>
+                                                {entry.foods.length > 0 && (
+                                                    <button onClick={() => toggleRowExpansion(entry.id)} className="ml-2 text-blue-500 hover:text-blue-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 flex-shrink-0">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{(entry.finalScore || 0).toFixed(2)}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button onClick={() => onEdit(entry)} className="text-indigo-600 hover:text-indigo-900 mr-2">Bearbeiten</button>
+                                            <button onClick={() => onDelete(entry.id!)} className="text-red-600 hover:text-red-900">Löschen</button>
+                                        </td>
+                                    </tr>
+                                    {isExpanded && (
+                                        <tr className="bg-gray-50">
+                                            <td colSpan={6} className="px-8 py-4">
+                                                <h4 className="font-semibold text-gray-700 text-sm">Gegessene Lebensmittel an diesem Tag:</h4>
+                                                <ul className="list-disc list-inside pl-5 mt-2 space-y-1 text-gray-600 text-sm">
+                                                    {entry.foods.map((food, index) => (
+                                                        <li key={index}>{food}</li>
+                                                    ))}
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </Fragment>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
