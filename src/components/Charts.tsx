@@ -113,6 +113,15 @@ const Charts: React.FC<ChartsProps> = ({ scores, dailyEntries, foodItems }) => {
     };
     
     const sortedFoodItems = useMemo(() => [...foodItems].sort((a,b) => a.localeCompare(b)), [foodItems]);
+    
+    const handleSelectAllFoods = () => {
+        if (selectedBoxPlotFoods.length === sortedFoodItems.length) {
+            setSelectedBoxPlotFoods([]);
+        } else {
+            setSelectedBoxPlotFoods(sortedFoodItems);
+        }
+    };
+    const allSelectedForBoxPlot = selectedBoxPlotFoods.length === sortedFoodItems.length;
 
     return (
         <div className="flex flex-col space-y-8 items-center mt-8">
@@ -135,19 +144,28 @@ const Charts: React.FC<ChartsProps> = ({ scores, dailyEntries, foodItems }) => {
             {/* NEUER BOX-PLOT BEREICH */}
             <div className="w-full relative pt-8 mt-8 border-t">
                  <h3 className="text-xl font-medium text-gray-700 mb-4 text-center">Juckreiz-Verteilung pro Lebensmittel (Box-Plot)</h3>
-                 <div className="w-full max-w-md mx-auto mb-4" ref={dropdownRef}>
-                    <button
-                        type="button"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                    >
-                        Lebensmittel auswählen ({selectedBoxPlotFoods.length} ausgewählt)
-                        <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                    </button>
+                 <div className="relative w-full max-w-md mx-auto mb-4" ref={dropdownRef}>
+                    <div className="flex items-center space-x-2">
+                        <button
+                            type="button"
+                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            Lebensmittel auswählen ({selectedBoxPlotFoods.length} ausgewählt)
+                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleSelectAllFoods}
+                            className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 whitespace-nowrap"
+                        >
+                            {allSelectedForBoxPlot ? 'Alle abwählen' : 'Alle auswählen'}
+                        </button>
+                    </div>
                     {isDropdownOpen && (
-                        <div className="origin-top-right absolute mt-2 w-full max-w-md rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                        <div className="origin-top-right absolute mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                             <div className="py-1 max-h-60 overflow-y-auto">
                                 {sortedFoodItems.map(food => (
                                      <label key={food} className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">

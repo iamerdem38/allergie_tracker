@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { DailyEntry } from '../types';
 import { addMonths, eachDayOfInterval, endOfMonth, format, getDay } from 'date-fns';
-import { de } from 'date-fns/locale';
+import { de } from 'date-fns/locale/de';
 
 interface CalendarProps {
     dailyEntries: DailyEntry[];
@@ -31,24 +31,26 @@ const Calendar: React.FC<CalendarProps> = ({ dailyEntries }) => {
 
         const entriesMap = new Map(dailyEntries.map(e => [e.date, e]));
         
-        // Adjust for Monday start
+        // Adjust for Monday start (0 = Monday, 6 = Sunday)
         let startingDayIndex = getDay(start);
         startingDayIndex = startingDayIndex === 0 ? 6 : startingDayIndex - 1;
 
-        const calendarGrid: CalendarDay[] = Array.from({ length: startingDayIndex }, (_, i) => ({ key: `empty-${i}`, isEmpty: true }));
+        const emptyDays: CalendarDay[] = Array.from({ length: startingDayIndex }, (_, i) => ({
+            key: `empty-${i}`,
+            isEmpty: true,
+        }));
 
-        days.forEach(day => {
+        const filledDays: CalendarDay[] = days.map(day => {
             const dateStr = format(day, 'yyyy-MM-dd');
-            const entry = entriesMap.get(dateStr);
-            calendarGrid.push({
+            return {
                 key: dateStr,
                 isEmpty: false,
                 day: format(day, 'd'),
-                entry,
-            });
+                entry: entriesMap.get(dateStr),
+            };
         });
 
-        return calendarGrid;
+        return [...emptyDays, ...filledDays];
     }, [currentMonth, dailyEntries]);
 
     return (
