@@ -1,11 +1,11 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { FoodScore, DailyEntry } from '../types';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, BarController } from 'chart.js';
 import { Bar, Chart } from 'react-chartjs-2';
 // Die Schreibweise von 'BoxAndWhiskers' wurde zu 'BoxAndWiskers' korrigiert, um den Build-Fehler zu beheben.
 import { BoxPlotController, BoxAndWiskers } from '@sgratzl/chartjs-chart-boxplot';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, BoxPlotController, BoxAndWiskers);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, BoxPlotController, BoxAndWiskers, BarController);
 
 interface ChartsProps {
     scores: FoodScore[];

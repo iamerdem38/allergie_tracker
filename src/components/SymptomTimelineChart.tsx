@@ -3,7 +3,7 @@ import { DailyEntry } from '../types';
 import { format } from 'date-fns';
 import { subDays } from 'date-fns/subDays';
 import { parseISO } from 'date-fns/parseISO';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, TimeScale, TimeSeriesScale } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, TimeScale, TimeSeriesScale, LineController, BarController } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 
@@ -17,7 +17,9 @@ ChartJS.register(
     Tooltip,
     Legend,
     TimeScale,
-    TimeSeriesScale
+    TimeSeriesScale,
+    LineController,
+    BarController
 );
 
 interface SymptomTimelineChartProps {
