@@ -12,6 +12,7 @@ import Calendar from './Calendar';
 import EntriesTable from './EntriesTable';
 import DataManagement from './DataManagement';
 import DaysSinceLastEatenChart from './DaysSinceLastEatenChart';
+import SymptomTimelineChart from './SymptomTimelineChart';
 
 const AllergyTracker: React.FC = () => {
     const { user, signOut } = useAuth();
@@ -168,6 +169,8 @@ const AllergyTracker: React.FC = () => {
                         foodItems={foodItems.map(f => f.name)}
                     />
                 </div>
+
+                <SymptomTimelineChart dailyEntries={dailyEntries} />
 
                 <div className="p-6 bg-white rounded-xl shadow-lg">
                     <h3 className="text-xl font-medium text-gray-700 mb-2">Zeitverlauf der Allergiebeschwerden</h3>
